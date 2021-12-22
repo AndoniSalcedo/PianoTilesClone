@@ -1051,6 +1051,11 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
+"@coffeebeanslabs/react-native-inviewport@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@coffeebeanslabs/react-native-inviewport/-/react-native-inviewport-0.2.0.tgz#ef00634a1eb622cee0275b0a6b31222c2802464c"
+  integrity sha512-/5tJdCavCsbN45AEKs4rDITMUuRkSMGqjaYidUn2T6VUuc+HzI0hx4Ysd3S73lmjBJdU8V3UMrZri5NhtW14zQ==
+
 "@expo/config-plugins@4.0.14", "@expo/config-plugins@^4.0.2":
   version "4.0.14"
   resolved "https://registry.yarnpkg.com/@expo/config-plugins/-/config-plugins-4.0.14.tgz#39353be207fe499f4e28703a6cbe7a577bc1b3bb"
@@ -1408,6 +1413,11 @@
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@sideway/pinpoint/-/pinpoint-2.0.0.tgz#cff8ffadc372ad29fd3f78277aeb29e632cc70df"
   integrity sha512-RNiOoTPkptFtSVzQevY/yWtZwf/RxyVnPy/OcA9HBM3MlGDnBEYL5B41H0MTn0Uec8Hi+2qUtTfG2WWZBmMejQ==
+
+"@skele/components@^1.0.0-alpha.40":
+  version "1.0.0-alpha.40"
+  resolved "https://registry.yarnpkg.com/@skele/components/-/components-1.0.0-alpha.40.tgz#1548f77ec5bdc6c6ea2ad8ffcb47809581e64289"
+  integrity sha512-8mhYslxz71l+8maHegrNqQrl+a6oRFSl+OmAC4Gny1vQ8znCyGG8gR+SWFeDnNALpOi/EZvPC65qTylkoq6xZg==
 
 "@types/graceful-fs@^4.1.2":
   version "4.1.5"
@@ -2448,6 +2458,11 @@ expo-keep-awake@~10.0.1:
   version "10.0.1"
   resolved "https://registry.yarnpkg.com/expo-keep-awake/-/expo-keep-awake-10.0.1.tgz#9f1176216c41eee20843c8232acfdca2bc32d334"
   integrity sha512-kcBtoDGkm3RRe6BpKDvR7gof/ErajEia38u92pRvNRctdh+p8AFO7GQuiipyg3iMfhcCFVTCIV7h3tuA0g/yDw==
+
+expo-linear-gradient@~11.0.0:
+  version "11.0.0"
+  resolved "https://registry.yarnpkg.com/expo-linear-gradient/-/expo-linear-gradient-11.0.0.tgz#88605aad93ee73c32110e83e89ef17bb13c330b5"
+  integrity sha512-OVzmsz5y+NxX4XvtQhKAQCdakVaAwFB0ajYlcT50zl1MKU33LrBa8hxSe3qo8CCGSZSfjdfzGvyZ1cf12BXI9Q==
 
 expo-modules-autolinking@0.5.1:
   version "0.5.1"
