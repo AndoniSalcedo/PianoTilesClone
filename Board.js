@@ -1,11 +1,13 @@
-import { View ,StyleSheet, Dimensions  } from "react-native"
+import { View ,StyleSheet, Dimensions, TouchableWithoutFeedback  } from "react-native"
 
 import { LinearGradient } from 'expo-linear-gradient';
 import Tiles from "./Tiles";
+import { useRef } from "react";
 
 
 const Board = () => {
 
+    const myRef = useRef(null)
     return(
         <LinearGradient 
             style={styles.container} 
@@ -14,14 +16,16 @@ const Board = () => {
             end={{ x: 1, y: 1 }}
         >
             {/* BackGround Lines only for styling*/}
-            <View style={styles.board}>
-                <View style={styles.column}/>
-                <View style={styles.column}/>
-                <View style={styles.column}/>
-                <View style={styles.column}/>
-            </View>
+            <TouchableWithoutFeedback onPress={()=>{myRef.current.start()}}>
+                <View style={styles.board}>
+                    <View style={styles.column}/>
+                    <View style={styles.column}/>
+                    <View style={styles.column}/>
+                    <View style={styles.column}/>
+                </View>
+            </TouchableWithoutFeedback>
 
-            <Tiles/>
+            <Tiles ref={myRef}/>
 
         </LinearGradient>
       
