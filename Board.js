@@ -1,16 +1,11 @@
-import { useEffect, useRef, useState } from "react";
-import { View ,StyleSheet, Dimensions, TouchableWithoutFeedback, Text, StatusBar  } from "react-native"
-
+import { useRef } from "react";
+import { View ,StyleSheet, Dimensions, TouchableWithoutFeedback } from "react-native"
 import { LinearGradient } from 'expo-linear-gradient';
 
 import Tiles from "./Tiles";
-import MusicPlayer from "./MusicPlayer";
 
-
-const Board = () => {
-
-    const [musicPlayer,setMusicPlayer] = useState();
-
+const Board = (props) => {
+    /* At the moment the data is created here */
     const createData = (song) => {
         let data = {tiles: [], speed : 2.5}
         let initialValue = Math.floor(Math.random() * 4);
@@ -31,21 +26,10 @@ const Board = () => {
         }
         return data
     }
-
     
-    useEffect(()=>{
-        async function init(){
-            let player = new MusicPlayer()
-            await player.initialize()
-            setMusicPlayer(player)
-            setStart(true)
-        }
-        init()
-    },[])
 
     const data = createData(["g3","g3","d5","d5","e5","e5","d5","c5","c5","b3","b3","a3","a3","g3","g3","g3","d5","d5","e5","e5","d5","c5","c5","b3","b3","a3","d5","d5","c5","c5","b3","b3","a3","g3","g3","d5","d5","e5","e5","d5","c5","c5","b3","b3","a3","g3"])
 
-    const [start,setStart] = useState(false)
 
     const onStart = async() => {
         myRef.current.onStart()
@@ -53,14 +37,6 @@ const Board = () => {
 
     const myRef = useRef(null)
     
-    if(!start){
-        return(
-            <View style={styles.load}>
-                  <Text>Loading...</Text>
-                  <StatusBar style="auto" />
-            </View>
-        )
-    }else{
         return(
             <LinearGradient 
                 style={styles.container} 
@@ -78,20 +54,13 @@ const Board = () => {
                     </View>
                 </TouchableWithoutFeedback>
 
-                <Tiles ref={myRef} data={data} musicPlayer={musicPlayer}/>
+                <Tiles ref={myRef} data={data} musicPlayer={props.MusicPlayer}/>
 
             </LinearGradient>
         )
-    }
 }
 
 const styles = StyleSheet.create({
-    load: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-      },
     container: {
         height: "100%",
         width: "100%"

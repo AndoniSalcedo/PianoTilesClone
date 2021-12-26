@@ -21,7 +21,7 @@ const Tile = (props,ref) => {
     }
 
     const handlePressSuccess = async() => {
-        await props.musicPlayer.onPlay(props.tile.note)
+        await global.MusicPlayer.onPlay(props.tile.note)
         setSuccessOpacity(0.2)
         setClicked(true)
     }

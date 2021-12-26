@@ -23,7 +23,6 @@ const g3 = require('./assets/g3.mp3')
 const g4 = require('./assets/g4.mp3')
 const g5 = require('./assets/g5.mp3')
 
-
 class MusicPlayer {
 
     async initialize(){
@@ -140,6 +139,30 @@ class MusicPlayer {
         }
 
     }
+
+    async terminate(){
+        this.a3.unloadAsync()
+        this.a4.unloadAsync()
+        this.a5.unloadAsync()
+        this.b3.unloadAsync()
+        this.b4.unloadAsync()
+        this.b5.unloadAsync()
+        this.c3.unloadAsync()
+        this.c4.unloadAsync()
+        this.c5.unloadAsync()
+        this.d3.unloadAsync()
+        this.d4.unloadAsync()
+        this.d5.unloadAsync()
+        this.e3.unloadAsync()
+        this.e4.unloadAsync()
+        this.e5.unloadAsync()
+        this.f3.unloadAsync()
+        this.f4.unloadAsync()
+        this.f5.unloadAsync()
+        this.g3.unloadAsync()
+        this.g4.unloadAsync()
+        this.g5.unloadAsync()
+    }
 }
 
-export default MusicPlayer
+global.MusicPlayer = new MusicPlayer()
