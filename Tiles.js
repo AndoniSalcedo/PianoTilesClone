@@ -1,60 +1,54 @@
-import { forwardRef, useImperativeHandle, useRef, useState } from "react"
+import { forwardRef, useImperativeHandle, useRef } from "react"
 import { StyleSheet, Animated,  Dimensions, StatusBar, Easing } from "react-native"
+
 import Tile from "./Tile"
-
-const Columns = 4
-
-//TODO: ponerlo como variable de estado y pasado por prop
-const data = {
-    tiles: [[0,1,0,0],[0,0,1,0],[1,0,0,0],[0,1,0,0],[0,1,0,0],[0,0,1,0],[1,0,0,0],[0,0,0,1],[0,1,0,0],[0,0,1,0],[1,0,0,0],[0,1,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1],[1,0,0,0],[0,1,0,0],[0,1,0,0],[0,0,1,0],[1,0,0,0],[0,1,0,0],[0,0,0,1],[0,1,0,0],[0,0,1,0],[0,0,0,1],[1,0,0,0],[0,1,0,0],[0,0,0,1],[0,1,0,0],[0,0,1,0],[1,0,0,0],[0,1,0,0],[0,1,0,0],[0,0,1,0],[1,0,0,0],[0,0,0,1],[0,1,0,0],[0,0,1,0],[1,0,0,0],[0,1,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1],[1,0,0,0],[0,1,0,0],[0,1,0,0],[0,0,1,0],[1,0,0,0],[0,1,0,0],[0,0,0,1],[0,1,0,0],[0,0,1,0],[0,0,0,1],[1,0,0,0],[0,1,0,0],[0,0,0,1],[0,1,0,0],[0,0,1,0],[1,0,0,0],[0,1,0,0],[0,1,0,0],[0,0,1,0],[1,0,0,0],[0,0,0,1],[0,1,0,0],[0,0,1,0],[1,0,0,0],[0,1,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1],[1,0,0,0],[0,1,0,0],[0,1,0,0],[0,0,1,0],[1,0,0,0],[0,1,0,0],[0,0,0,1],[0,1,0,0],[0,0,1,0],[0,0,0,1],[1,0,0,0],[0,1,0,0],[0,0,0,1],[0,1,0,0],[0,0,1,0],[1,0,0,0],[0,1,0,0],[0,1,0,0],[0,0,1,0],[1,0,0,0],[0,0,0,1],[0,1,0,0],[0,0,1,0],[1,0,0,0],[0,1,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1],[1,0,0,0],[0,1,0,0],[0,1,0,0],[0,0,1,0],[1,0,0,0],[0,1,0,0],[0,0,0,1],[0,1,0,0],[0,0,1,0],[0,0,0,1],[1,0,0,0],[0,1,0,0],[0,0,0,1]]
-}
-
-let dl = data.tiles.length * 175
 
 let wh = Dimensions.get('window').height + StatusBar.currentHeight
 
-let value = new Animated.Value(-dl)
-
-const Tiles = (props,ref) => {  
-
-    const [num,setNum] = useState(0)
-   
-    const tilesRef = useRef([])
-
-    tilesRef.current = tilesRef.current.slice(0,data.tiles.length)
+const Tiles = ({data,musicPlayer},ref) => {  
 
     useImperativeHandle(ref,()=> ({
-        start: () => {
+        onStart: () => {
             animation.start()
-            setTimeout(handlerTime, di);
+            setInterval(handlerTime,50);
         }
     }))
+    //TODO: change dl
+    let dl = data.tiles.length * 175
+    const value = useRef(new Animated.Value(-dl)).current;
 
-    let cons = 2
     
+    //Posible solution change by ref variable
+    const countRef = useRef(0)
+    const animatedRef = useRef(null)
+   
+    const tilesRef = useRef(Array(data.tiles.length))
+
+    let cons = data.speed
+
+    //TODO: Optimice this
+    /* 
     let v = ( dl + wh )/( dl * cons )
 
     let dt = 175/v
 
-    let di = (wh / v) + dt / 2
+    let di = (wh / v) + dt / 2 
+    */
 
     
-
-    
+    //TODO: cmon you can do it better
     const handlerTime = () => {
-        //check if is checked
-        if(!tilesRef.current[num].checkStatus()){
-            onGameOver()
-            
-            
-        }else{
-            setNum(num+1)
-            setTimeout(handlerTime, dt)
-        }
-        
+        animatedRef.current.measure((x, y, width, height, pageX, pageY) => {
+            if(pageY > -dl + wh + (countRef.current*175) + 50){
+                
+                if(!tilesRef.current[countRef.current].checkStatus()){
+                    console.log("game over")
+                    onGameOver()
+                }
+                countRef.current += 1
+            }
+        });
     }
-
-    
 
     const animation = Animated.timing(value, {
         toValue: wh,
@@ -66,10 +60,9 @@ const Tiles = (props,ref) => {
     const onGameOver = () => {
         animation.stop()
     }
-
     
     const tiles = data.tiles.map((value,index) => {
-        return <Tile ref={el => tilesRef.current[index] = el} tile={value} key={index} onGameOver={onGameOver}/>
+        return <Tile ref={el => tilesRef.current[index] = el} tile={value} key={index} onGameOver={onGameOver} musicPlayer={musicPlayer}/>
     })
 
     return(
@@ -77,8 +70,8 @@ const Tiles = (props,ref) => {
             {
                 transform: [{translateY: value}]
             }]}
+            ref={animatedRef}
             >
-
            {tiles}
         </Animated.View>
         )

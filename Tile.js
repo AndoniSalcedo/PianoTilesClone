@@ -1,7 +1,7 @@
 import { forwardRef, useImperativeHandle, useState } from "react"
 import SimpleTile from "./TilesShapes/SimpleTile"
 
-const Tile = (props,ref) => {  
+const Tile = (props,ref) => {      
 
     useImperativeHandle(ref, () => ({
         checkStatus: () => {
@@ -20,21 +20,23 @@ const Tile = (props,ref) => {
         props.onGameOver()
     }
 
-    const handlePressSuccess = () => {
+    const handlePressSuccess = async() => {
+        await props.musicPlayer.onPlay(props.tile.note)
         setSuccessOpacity(0.2)
         setClicked(true)
     }
-
-    return (   
-        <SimpleTile
-            handlePressSuccess={handlePressSuccess} 
-            handlePressFail={handlePressFail}
-            failOpacity={failOpacity}
-            successOpacity={successOpacity}
-            tile={props.tile}
-            />
-        
-    )
+    switch(props.tile.type){
+        case "simple":
+            return(
+                <SimpleTile
+                    handlePressSuccess={handlePressSuccess} 
+                    handlePressFail={handlePressFail}
+                    failOpacity={failOpacity}
+                    successOpacity={successOpacity}
+                    tile={props.tile.lyric}
+                />
+            )
+    }
 }
 
 
