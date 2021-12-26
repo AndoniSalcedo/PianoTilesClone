@@ -1,21 +1,21 @@
 import { TouchableWithoutFeedback, View, Text, StyleSheet, Image } from "react-native"
 
+const faded = require('../../../assets/alam-walker-faded.jpg')
 
-const faded = require('./assets/alam-walker-faded.jpg')
 const Songs = (props) => {
     return (
-        <TouchableWithoutFeedback onPress={() => { props.navigation.navigate("Board")}}>
+        <TouchableWithoutFeedback onPress={() => { props.navigation.navigate("Board") }}>
             <View style={styles.container}>
 
                 <Image style={styles.image} source={faded} />
 
-                    <View style={styles.info}>
-                        <Text style={styles.title}>Faded {props.data}</Text>
-                        <Text style={styles.autor}>Alan Walker {props.data}</Text>
-                    </View>
-                    <View style={styles.play}>
-                        <Text style={{height: 20 }}>JUGAR</Text>
-                    </View>
+                <View style={styles.info}>
+                    <Text style={styles.title}> {props.data.title} </Text>
+                    <Text>{props.data.author} </Text>
+                </View>
+                <View style={styles.play}>
+                    <Text style={{ height: 20 }}>JUGAR</Text>
+                </View>
             </View>
         </TouchableWithoutFeedback>
     )
@@ -31,7 +31,6 @@ const styles = StyleSheet.create({
 
         display: "flex",
         flexDirection: "row"
-
     },
     image: {
         width: 100,
@@ -46,9 +45,6 @@ const styles = StyleSheet.create({
     },
     title: {
         fontWeight: 'bold'
-    },
-    autor: {
-
     },
     play: {
         display: "flex",

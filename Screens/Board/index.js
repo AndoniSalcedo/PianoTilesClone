@@ -2,9 +2,10 @@ import { useRef } from "react";
 import { View ,StyleSheet, Dimensions, TouchableWithoutFeedback } from "react-native"
 import { LinearGradient } from 'expo-linear-gradient';
 
-import Tiles from "./Tiles";
+import Tiles from "./Components/Tiles";
 
 const Board = (props) => {
+    
     /* At the moment the data is created here */
     const createData = (song) => {
         let data = {tiles: [], speed : 2.5}

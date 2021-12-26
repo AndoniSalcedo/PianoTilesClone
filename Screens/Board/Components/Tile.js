@@ -1,5 +1,5 @@
 import { forwardRef, useImperativeHandle, useState } from "react"
-import SimpleTile from "./TilesShapes/SimpleTile"
+import SimpleTile from "../../../TilesShapes/SimpleTile"
 
 const Tile = (props,ref) => {      
 

@@ -3,7 +3,7 @@ import { View, Text, StatusBar } from "react-native"
 
 
 import MusicPlayer from "./MusicPlayer";
-import SearchSong from "./navigate";
+import SearchSong from "./Screens/navigate";
 
 
 const App = () => {
