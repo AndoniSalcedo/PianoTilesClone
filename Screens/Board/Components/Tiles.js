@@ -1,20 +1,22 @@
-import { forwardRef, useImperativeHandle, useRef } from "react"
+import { forwardRef, useImperativeHandle, useRef, useState } from "react"
 import { StyleSheet, Animated,  Dimensions, StatusBar, Easing } from "react-native"
 
 import Tile from "./Tile"
 
 let wh = Dimensions.get('window').height + StatusBar.currentHeight
 
-const Tiles = ({data,musicPlayer},ref) => {  
+const Tiles = (props,ref) => {  
+
+    const [interval,setInterval] = useState()
 
     useImperativeHandle(ref,()=> ({
         onStart: () => {
-            animation.start()
-            setInterval(handlerTime,50);
+            animation.start(onFinish)
+            setInterval(setInterval(handlerTime,50));
         }
     }))
     //TODO: change dl
-    let dl = data.tiles.length * 175
+    let dl = props.data.tiles.length * 175
     const value = useRef(new Animated.Value(-dl)).current;
 
     
@@ -22,9 +24,9 @@ const Tiles = ({data,musicPlayer},ref) => {
     const countRef = useRef(0)
     const animatedRef = useRef(null)
    
-    const tilesRef = useRef(Array(data.tiles.length))
+    const tilesRef = useRef(Array(props.data.tiles.length))
 
-    let cons = data.speed
+    let cons = props.data.speed
 
     //TODO: Optimice this
     /* 
@@ -59,10 +61,16 @@ const Tiles = ({data,musicPlayer},ref) => {
 
     const onGameOver = () => {
         animation.stop()
+        onFinish()
+    }
+
+    const onFinish = () => {
+        clearInterval(interval)
+        props.onFinish()
     }
     
-    const tiles = data.tiles.map((value,index) => {
-        return <Tile ref={el => tilesRef.current[index] = el} tile={value} key={index} onGameOver={onGameOver} musicPlayer={musicPlayer}/>
+    const tiles = props.data.tiles.map((value,index) => {
+        return <Tile ref={el => tilesRef.current[index] = el} tile={value} key={index} onGameOver={onGameOver}/>
     })
 
     return(
