@@ -5,6 +5,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import Tiles from "./Components/Tiles";
 
 const Board = (props) => {
+
     
     /* At the moment the data is created here */
     const createData = (song) => {
@@ -29,7 +30,7 @@ const Board = (props) => {
     }
     
 
-    const data = createData(["g3","g3","d5","d5","e5","e5","d5","c5","c5","b3","b3","a3","a3","g3","g3","g3","d5","d5","e5","e5","d5","c5","c5","b3","b3","a3","d5","d5","c5","c5","b3","b3","a3","g3","g3","d5","d5","e5","e5","d5","c5","c5","b3","b3","a3","g3"])
+    const data = createData(props.route.params)
 
 
     const onStart = async() => {

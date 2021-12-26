@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { View, Text, StatusBar } from "react-native"
 
-
+//Global scope
 import MusicPlayer from "./MusicPlayer";
-import SearchSong from "./Screens/navigate";
 
+import SearchSong from "./Screens/navigate";
 
 const App = () => {
 
