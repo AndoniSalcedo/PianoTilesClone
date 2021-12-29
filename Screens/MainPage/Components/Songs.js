@@ -1,13 +1,12 @@
 import { TouchableWithoutFeedback, View, Text, StyleSheet, Image } from "react-native"
 
-const faded = require('../../../assets/alam-walker-faded.jpg')
 
 const Songs = (props) => {
     return (
         <TouchableWithoutFeedback onPress={() => { props.navigation.navigate("Board",props.data.notes) }}>
             <View style={styles.container}>
 
-                <Image style={styles.image} source={faded} />
+                <Image style={styles.image} source={props.data.profile} />
 
                 <View style={styles.info}>
                     <Text style={styles.title}>{props.data.title}</Text>

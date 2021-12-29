@@ -7,65 +7,52 @@ let wh = Dimensions.get('window').height + StatusBar.currentHeight
 
 const Tiles = (props,ref) => {  
 
-    const [interval,setInterval] = useState()
-
     useImperativeHandle(ref,()=> ({
         onStart: () => {
             animation.start(onFinish)
-            setInterval(setInterval(handlerTime,50));
+            setTimeout(handlerTime,50)
         }
     }))
+
     //TODO: change dl
     let dl = props.data.tiles.length * 175
     const value = useRef(new Animated.Value(-dl)).current;
 
-    
-    //Posible solution change by ref variable
     const countRef = useRef(0)
     const animatedRef = useRef(null)
    
     const tilesRef = useRef(Array(props.data.tiles.length))
 
-    let cons = props.data.speed
-
-    //TODO: Optimice this
-    /* 
-    let v = ( dl + wh )/( dl * cons )
-
-    let dt = 175/v
-
-    let di = (wh / v) + dt / 2 
-    */
-
-    
-    //TODO: cmon you can do it better
-    const handlerTime = () => {
+    const handlerTime = async() => {
         animatedRef.current.measure((x, y, width, height, pageX, pageY) => {
-            if(pageY > -dl + wh + (countRef.current*175) + 50){
-                
+            if(pageY > -dl + wh + (countRef.current*175)){
                 if(!tilesRef.current[countRef.current].checkStatus()){
                     console.log("game over")
                     onGameOver()
+                }else{
+                    setTimeout(handlerTime,50)
                 }
                 countRef.current += 1
+            }else{
+                setTimeout(handlerTime,50)
             }
         });
     }
 
     const animation = Animated.timing(value, {
         toValue: wh,
-        duration: dl * cons,
+        duration: dl * props.data.speed,
         useNativeDriver: true,
         easing: Easing.linear
     })
 
     const onGameOver = () => {
         animation.stop()
-        onFinish()
+        /* On animation stop onFinishCallback is called */
     }
 
     const onFinish = () => {
-        clearInterval(interval)
+        console.log("onfinish");
         props.onFinish()
     }
     

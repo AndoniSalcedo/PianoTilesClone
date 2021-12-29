@@ -5,11 +5,9 @@ import { LinearGradient } from 'expo-linear-gradient';
 import Tiles from "./Components/Tiles";
 
 const Board = (props) => {
-
-
     /* At the moment the data is created here */
     const createData = (song) => {
-        let data = { tiles: [], speed: 2.5 }
+        let data = { tiles: [], speed: 3 }
         let initialValue = Math.floor(Math.random() * 4);
         for (let i = 0; i < song.length; i++) {
             let max = 3
@@ -50,7 +48,7 @@ const Board = (props) => {
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 1 }}
         >
-            {/* BackGround Lines only for styling*/}
+            {/*BackGround Lines only for styling*/}
             <TouchableWithoutFeedback onPress={onStart}>
                 <View style={styles.board}>
                     <View style={styles.column} />
